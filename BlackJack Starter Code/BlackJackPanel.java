@@ -18,7 +18,7 @@ public class BlackJackPanel extends JPanel {
          icons = new ArrayList<ImageIcon>();
          cardBack = new ImageIcon("gifs/back.gif");
          for (String card: BlackJackEnv.deck)
-            icons.add(new ImageIcon("src/gifs/"+card+".gif"));
+            icons.add(new ImageIcon("gifs/"+card+".gif"));
          this.setBackground(new Color(0,100,0));
          JFrame frame = new JFrame("Black Jack Environment");
          frame.setBounds(100,100,400,300);
