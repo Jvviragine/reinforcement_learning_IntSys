@@ -5,8 +5,8 @@ import javax.swing.*;
 
 public class BlackJackPanel extends JPanel {
 
-    private ArrayList<ImageIcon> icons;
-    private ImageIcon cardBack;
+    private final ArrayList<ImageIcon> icons;
+    private final ImageIcon cardBack;
     private ArrayList<ImageIcon> dealerHand;
     private int dealerValue;
     private ArrayList<ImageIcon> playerHand;
@@ -18,9 +18,9 @@ public class BlackJackPanel extends JPanel {
          icons = new ArrayList<ImageIcon>();
          cardBack = new ImageIcon("gifs/back.gif");
          for (String card: BlackJackEnv.deck)
-            icons.add(new ImageIcon("gifs/"+card+".gif"));
+            icons.add(new ImageIcon("src/gifs/"+card+".gif"));
          this.setBackground(new Color(0,100,0));
-         JFrame frame = new JFrame();
+         JFrame frame = new JFrame("Black Jack Environment");
          frame.setBounds(100,100,400,300);
          frame.setContentPane(this);
          frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -28,7 +28,7 @@ public class BlackJackPanel extends JPanel {
     }
 
     public void render(ArrayList<String> state) {
-        gameOver = (state.getFirst().equals("true"));
+        gameOver = (state.get(0).equals("true"));
         List<String> dealerString = BlackJackEnv.getDealerCards(state);
         dealerHand = new ArrayList<ImageIcon>();
         for (String card : dealerString)
@@ -36,7 +36,7 @@ public class BlackJackPanel extends JPanel {
         if (gameOver)
             dealerValue = BlackJackEnv.totalValue(BlackJackEnv.getDealerCards(state));
         else
-            dealerValue = BlackJackEnv.valueOf(BlackJackEnv.getDealerCards(state).getFirst());
+            dealerValue = BlackJackEnv.valueOf(BlackJackEnv.getDealerCards(state).get(0));
         List<String> playerString = BlackJackEnv.getPlayerCards(state);
         playerValue = BlackJackEnv.totalValue(playerString);
         playerAce = BlackJackEnv.holdActiveAce(playerString);
@@ -52,6 +52,7 @@ public class BlackJackPanel extends JPanel {
     }
 
     public void paintComponent(Graphics g){
+         super.paintComponent(g);
          g.setColor(Color.white);
          g.drawString("Dealer:",10,30);
          if (gameOver) {
@@ -61,7 +62,7 @@ public class BlackJackPanel extends JPanel {
                  x+=25;
              }
          } else {
-             dealerHand.getFirst().paintIcon(this, g, 15, 40);
+             dealerHand.get(0).paintIcon(this, g, 15, 40);
              cardBack.paintIcon(this, g, 40, 40);
 
          }
